@@ -19,7 +19,20 @@ def get_tickets(bs_element):
     for index in range(len(tickets)):
         tickets[index] = str(tickets[index].contents[0])
         tickets[index] = tickets[index].replace('\n', "")
+
+    for index in range(len(tickets)):
+        if "preis" not in  tickets[index]:
+            tickets.pop(index)
+
     return tickets
+
+def generate_price_table(prices, tickets):
+    price_table = []
+    for index in range(len(tickets)):
+        price_touple = (tickets[index], prices[index])
+        price_table.append(price_touple)
+
+    return price_table
 
 bs_element = download_url(url)
 
@@ -29,6 +42,4 @@ tickets = get_tickets(bs_element)
 print(prices)
 print(tickets)
 
-price_table = [[]]
-
-#for ticket in 
+print(generate_price_table(prices, tickets))
